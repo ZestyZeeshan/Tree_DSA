@@ -1,0 +1,69 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class LevelOrder {
+    static Scanner sc = null;
+
+    public static void main(String[] args) {
+        sc = new Scanner(System.in);
+        Node root = CreateTree();
+        printOrder(root);
+    }
+
+    static Node CreateTree() {
+        Node root = null;
+        System.out.println("Enter the data");
+        int data = sc.nextInt();
+
+        if (data == -1) return null;
+        root = new Node(data);
+
+        System.out.println("Enter left for " + data);
+        root.left = CreateTree();
+
+        System.out.println("Enter right for " + data);
+        root.right = CreateTree();
+
+        return root;
+    }
+
+    public static void printOrder(Node root) {
+        if (root == null) {
+            System.out.println("Tree is empty");
+            return;
+        }
+        
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+
+        while (!q.isEmpty()) {
+            Node cur = q.poll();
+            if (cur == null) {
+                if (q.isEmpty()) return;
+                q.add(null);
+                System.out.println();
+                continue;
+            }
+
+            System.out.print(cur.data + " ");
+
+            if (cur.left != null) {
+                q.add(cur.left);
+            }
+            if (cur.right != null) {
+                q.add(cur.right);
+            }
+        }
+    }
+}
+
+class Node {
+    Node left, right;
+    int data;
+
+    public Node(int data) {
+        this.data = data;
+    }
+}
