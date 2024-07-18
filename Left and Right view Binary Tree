@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class LeftRightview {
+    static Scanner sc = null;
+
+    public static void main(String[] args) {
+        sc = new Scanner(System.in);
+        Node root = CreateTree();
+        printLeft(root);
+    }
+
+    static Node CreateTree() {
+        Node root = null;
+        System.out.println("Enter the data");
+        int data = sc.nextInt();
+
+        if (data == -1) return null;
+        root = new Node(data);
+
+        System.out.println("Enter left for " + data);
+        root.left = CreateTree();
+
+        System.out.println("Enter right for " + data);
+        root.right = CreateTree();
+
+        return root;
+    }
+
+    static void printLeft(Node root) {
+        ArrayList<Node> list = new ArrayList<>();
+        printLeftView(root, list, 0);
+        for (Node cur : list) {
+            System.out.println(cur.data + " ");
+        }
+    }
+
+    static void printLeftView(Node root, ArrayList<Node> list, int level) {
+        if (root == null) return;
+
+        if (level == list.size()) {
+            list.add(root);
+        }
+        printLeftView(root.left, list, level + 1);
+        printLeftView(root.right, list, level + 1);
+    }
+}
+
+class Node {
+    Node left, right;
+    int data;
+
+    public Node(int data) {
+        this.data = data;
+    }
+}
