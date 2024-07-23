@@ -41,6 +41,7 @@ public class LeftRightview {
         if (level == list.size()) {
             list.add(root);
         }
+//right k liye ise hi upr neche krdo
         printLeftView(root.left, list, level + 1);
         printLeftView(root.right, list, level + 1);
     }
